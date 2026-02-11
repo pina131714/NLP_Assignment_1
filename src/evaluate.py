@@ -53,20 +53,20 @@ def run_full_evaluation(clf_clarity, clf_evasion, X, y_clarity, y_evasion,
     
     fig, axes = plt.subplots(1, 2, figsize=(16, 6))
     
-    cm_clarity = confusion_matrix(y_clarity, y_pred_clarity, labels=unique_labels_clarity)
+    cm_clarity = confusion_matrix(y_clarity, y_pred_clarity, labels=unique_labels_clarity, normalize='true')
     disp_clarity = ConfusionMatrixDisplay(
         confusion_matrix=cm_clarity, 
         display_labels=label_names_clarity if label_names_clarity else unique_labels_clarity
     )
-    disp_clarity.plot(cmap='Blues', ax=axes[0], values_format='d')
+    disp_clarity.plot(cmap='Blues', ax=axes[0], values_format='.2f')
     axes[0].set_title(f"Confusion Matrix: {title} - Clarity")
     
-    cm_evasion = confusion_matrix(y_evasion, y_pred_evasion, labels=unique_labels_evasion)
+    cm_evasion = confusion_matrix(y_evasion, y_pred_evasion, labels=unique_labels_evasion, normalize='true')
     disp_evasion = ConfusionMatrixDisplay(
         confusion_matrix=cm_evasion, 
         display_labels=label_names_evasion if label_names_evasion else unique_labels_evasion
     )
-    disp_evasion.plot(cmap='Greens', ax=axes[1], values_format='d')
+    disp_evasion.plot(cmap='Greens', ax=axes[1], values_format='.2f')
     axes[1].set_title(f"Confusion Matrix: {title} - Evasion")
     
     plt.tight_layout()
