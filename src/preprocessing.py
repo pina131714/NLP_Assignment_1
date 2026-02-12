@@ -22,9 +22,12 @@ def consolidate_labels_tracked(example):
     
     return {'evasion_label': final_label, 'is_tie': is_tie}
 
+
 def get_preprocessed_data():
 
     ds = load_dataset("ailsntua/QEvasion")
+
+    test_set = ds["test"].map(consolidate_labels_tracked)
 
     ds["train"] = ds["train"].class_encode_column("evasion_label")
     ds["test"]  = ds["test"].cast_column(
@@ -41,8 +44,6 @@ def get_preprocessed_data():
         stratify_by_column="evasion_label",
         seed=SEED
     )
-
-    test_set = ds["test"].map(consolidate_labels_tracked)
 
     train_df = sub_split["train"].to_pandas()
     val_df = sub_split["test"].to_pandas()
