@@ -26,19 +26,19 @@ def get_preprocessed_data():
 
     ds = load_dataset("ailsntua/QEvasion")
 
-    ds["train"] = ds["train"].class_encode_column("clarity_label")
+    ds["train"] = ds["train"].class_encode_column("evasion_label")
     ds["test"]  = ds["test"].cast_column(
-        "clarity_label",
-        ds["train"].features["clarity_label"]
+        "evasion_label",
+        ds["train"].features["evasion_label"]
     )
 
-    label_feature = ds["train"].features["clarity_label"]
+    label_feature = ds["train"].features["evasion_label"]
     id2label = dict(enumerate(label_feature.names))
     label2id = {v: k for k, v in id2label.items()}
 
     sub_split = ds["train"].train_test_split(
         test_size=0.2,
-        stratify_by_column="clarity_label",
+        stratify_by_column="evasion_label",
         seed=SEED
     )
 
