@@ -1,1 +1,6 @@
 __pycache__
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+typst-x86_64-unknown-linux-musl/
+*.log
