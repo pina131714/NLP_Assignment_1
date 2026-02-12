@@ -30,7 +30,7 @@ def get_preprocessed_data():
     test_set = ds["test"].map(consolidate_labels_tracked)
 
     ds["train"] = ds["train"].class_encode_column("evasion_label")
-    ds["test"]  = ds["test"].cast_column(
+    test_set = test_set.cast_column(
         "evasion_label",
         ds["train"].features["evasion_label"]
     )
